@@ -1,6 +1,6 @@
 from scripts.sprite import Sprite
 
-class Player(sprite):
+class Player(Sprite):
     def __init__(self, center, image, speed, jump_power, gravity):
         super().__init__(center, image)
 
@@ -14,6 +14,17 @@ class Player(sprite):
         self.on_platform = False
 
     def update(self):
+        if self.on_platform:
+            self.velocity_y = - self.jump_power
+
         self.velocity_y = min(self.velocity_y + self.gravity, 15)
         self.rect.y += self.velocity_y
+
+        if self.is_walking_left != self.is_walking_right:
+            if self.is_walking_left:
+                self.rect.x -= self.speed
+            else:
+                self.rect.x += self.speed
+
+        self.on_platform = False
         

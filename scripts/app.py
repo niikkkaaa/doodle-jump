@@ -1,8 +1,9 @@
 import pygame
 import os
 from scripts.functions import load_image
+from scripts.game import Game
 class App:
-    def __init__(self) -> None():
+    def __init__(self):
         self.display_size=(480,720)
         self.running = True
         self.maxFPS=60
@@ -12,15 +13,21 @@ class App:
         self.game=Game()
 
         pygame.display.set_caption('Doodle Jump')
-        pygame.display.set_icon(load_image("assets","icons","icon.ico")))
+        pygame.display.set_icon(load_image("assets","icons","icon.ico"))
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
 
+            elif event.type == pygame.KEYDOWN:
+                self.game.handle_events_down_event(event.key)
+
+            elif event.type == pygame.KEYUP:
+                self.game.handle_events_up_event(event.key)
+
     def update(self):
-        ...
+        self.game.update()
     
     def render(self):
         self.display.fill((0,0,0))
