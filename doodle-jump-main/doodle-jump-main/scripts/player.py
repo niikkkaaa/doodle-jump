@@ -1,6 +1,5 @@
 from scripts.sprite import Sprite
 from scripts.constants import display_size
-import pygame
 class Player(Sprite):
     def __init__(self, center, image, speed, jump_power, gravity):
         super().__init__(center, image)
@@ -15,6 +14,13 @@ class Player(Sprite):
         self.is_walking_left = False
         self.on_platform = False
 
+    def reset(self,center):
+        super().__init__(center, self.original_image)
+        self.velocity_y=0
+        self.is_walking_right = False
+        self.is_walking_left = False
+        self.on_platform = False
+
     def update(self):
         if self.on_platform:
             self.velocity_y = - self.jump_power
@@ -24,11 +30,9 @@ class Player(Sprite):
 
         if self.is_walking_left != self.is_walking_right:
             if self.is_walking_left:
-                self.image = self.original_image.copy()
                 self.rect.x -= self.speed
             else:
                 self.rect.x += self.speed
-                self.image = pygame.transform.flip(self.original_image,True,False)
 
         self.on_platform = False
     

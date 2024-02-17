@@ -28,6 +28,7 @@ class App:
                 self.game.handle_events_up_event(event.key)
             
             elif event.type == CreatePlatformEvent:
+                print("Ахахахахах!")
                 self.game.handle_create_platform_event(event.platform)
 
     def update(self):
